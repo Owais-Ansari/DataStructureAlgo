@@ -10,7 +10,6 @@ You must write an algorithm that runs in `O(log n)` time.
 
 
 '''
-
 Input : Rotated sorter array of unique integers
 OutPut : Minimun number in the list
 test case 0 = {'input':[3,4,5,7,1,2],'output: 1}
