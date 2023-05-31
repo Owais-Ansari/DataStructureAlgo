@@ -13,41 +13,40 @@ You must decrease the overall operation steps as much as possible.'''
 '''
 Input : Rotated sorter array of integers which can have duplicates
 OutPut : Minimun number in the list
+Idea :
+ In a sorted rotated array, the minimum number should always be less than the numbers at both ends of the array.
+
+
+
+When an array is sorted in non-decreasing order and then rotated, the minimum element will be located at the pivot point, which is the point where the rotation occurred. This minimum element will be smaller than both the element at the beginning of the array and the element at the end of the array.
+
+
+
+Here's an example to illustrate this:
+
 test case 0 = {'input':[3,4,5,7,1,2],'output: 1}
 test case 1 = {'input':[3,4,5,0,0,0,1,2],'output: 0}
 test case 2 = {'input':[],'output: -1}
 test case 3 = {'input':[1,1,1,2,3,4],'output: 1}
 test case 4 = {'input':[1],'output: 1}
 test case 5 = {'input':[4,4,4,2,2,2,2,3,4],'output: 2}
+test case 6 = {'input':[4,4,4,2,4],'output: 2}
 '''
 
-class Solution(object):
-    def findMin(self,nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        low = 0 
-        high = len(nums)-1
-        while low <= high:
-            mid = (low+high)//2
-            #print(mid)
-            # If previous number is greater than the current (mid) number 
-            if mid > 0 and nums[mid] < nums[mid-1]:
-                # check for duplicates
-                if nums[mid]==nums[mid-1]:
-                    high = mid-1
-                else:
-                    return nums[mid]
 
-            elif mid > 0 and nums[mid] < nums[high]:
-            # Answer lies in the left half
-                high = mid-1  
+
+
+class Solution:
+    def findMin(self, nums):
+        start, end = 0, len(nums) - 1
+        while start < end:
+            mid = (start + end) // 2
+
+            if nums[mid] > nums[end]:
+                start = mid + 1
+            elif nums[mid] < nums[start]:
+                end = mid
             else:
-             # Answer lies in the right half
-                low = mid + 1
-        if high>=0:
-          # if list is not empty
-            return nums[0]
-        else:
-            return -1
+                end -= 1
+
+        return nums[start]
